@@ -53,7 +53,7 @@ export class ForgotComponent implements OnInit {
       // console.log(data);
       alert(data['message']);
       this.accountDetails=null;
-      this.serv.updateResetValInService(data);
+      // this.serv.updateResetValInService(data);
     },(err)=>{
       this.loader=false;
       alert(err.error.message);

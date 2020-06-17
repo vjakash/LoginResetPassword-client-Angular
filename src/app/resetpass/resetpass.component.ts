@@ -19,24 +19,39 @@ export class ResetpassComponent implements OnInit {
     private serv: ServerservService,
     private activatedRoute:ActivatedRoute
   ) {
-    let data=this.serv.getResetDataFromLocalStorage();
+    // let data=this.serv.getResetDataFromLocalStorage();
     // console.log("token",data['resetToken'],this.activatedRoute.snapshot.params.token)
     // console.log("email",data['resetEmail'],this.activatedRoute.snapshot.params.email)
-    if(data['resetToken']==this.activatedRoute.snapshot.params.token && data['resetEmail']==this.activatedRoute.snapshot.params.email){
+    console.log(this.activatedRoute.snapshot.params.token,this.activatedRoute.snapshot.params.email)
+    this.serv.verifyLink(this.activatedRoute.snapshot.params.token,this.activatedRoute.snapshot.params.email).subscribe((data)=>{
       let timeStamp:Date=new Date(data['timestamp']);
       let currentTimeStamp:Date=new Date();
       let diff:any=Math.abs(timeStamp.valueOf()-currentTimeStamp.valueOf());
       console.log(diff)
       if(parseInt(data['expiry']) < diff){
         alert("Reset Link expired,try resting again ");
-        this.clearLocalStorage();
         this.router.navigate(['forgot']);
       }
-    }
-    else{
+    },(err)=>{
+      alert(err.error.message);
+      console.log("here")
       this.router.navigate(["/"]);
-      alert("Reset link is broke...try reset the password again");
-    }
+    })
+    // if(data['resetToken']==this.activatedRoute.snapshot.params.token && data['resetEmail']==this.activatedRoute.snapshot.params.email){
+    //   let timeStamp:Date=new Date(data['timestamp']);
+    //   let currentTimeStamp:Date=new Date();
+    //   let diff:any=Math.abs(timeStamp.valueOf()-currentTimeStamp.valueOf());
+    //   console.log(diff)
+    //   if(parseInt(data['expiry']) < diff){
+    //     alert("Reset Link expired,try resting again ");
+    //     this.clearLocalStorage();
+    //     this.router.navigate(['forgot']);
+    //   }
+    // }
+    // else{
+    //   this.router.navigate(["/"]);
+    //   alert("Reset link is broke...try reset the password again");
+    // }
     this.newPassword = this.fb.group({
       email:localStorage.getItem('resetEmail'),
       token:localStorage.getItem('resetToken'),
@@ -53,7 +68,7 @@ export class ResetpassComponent implements OnInit {
         this.serv.resetPassword(this.newPassword.value).subscribe((data)=>{
           this.loader=false;
           alert(data.message+",  Login with the new password");
-          this.clearLocalStorage();
+          // this.clearLocalStorage();
           this.router.navigate(["/"]);
         },(err)=>{
           console.log(err);

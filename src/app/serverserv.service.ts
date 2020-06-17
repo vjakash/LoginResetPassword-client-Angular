@@ -40,4 +40,8 @@ export class ServerservService {
   resetPassword(data):Observable<any>{
     return this.http.post(`${environment.url}/resetpassword`,data)
   }
+  verifyLink(token,email):Observable<any>{
+    console.log(token,email);
+    return this.http.get(`${environment.url}/verify/${token}/${email}`);
+  }
 }
