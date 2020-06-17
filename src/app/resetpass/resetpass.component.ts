@@ -53,8 +53,8 @@ export class ResetpassComponent implements OnInit {
     //   alert("Reset link is broke...try reset the password again");
     // }
     this.newPassword = this.fb.group({
-      email:localStorage.getItem('resetEmail'),
-      token:localStorage.getItem('resetToken'),
+      email:this.activatedRoute.snapshot.params.email,
+      token:this.activatedRoute.snapshot.params.token,
       password: this.fb.control('', [Validators.required]),
       confirm_password: this.fb.control('', [Validators.required]),
     });
