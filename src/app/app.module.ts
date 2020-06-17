@@ -9,6 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ResetpassComponent } from './resetpass/resetpass.component'
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { ResetpassComponent } from './resetpass/resetpass.component'
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
