@@ -26,13 +26,13 @@ export class LoginComponent implements OnInit {
       this.loader=true;
       this.serv.login(this.loginDetails.value).subscribe(
         data=>{
-          console.log(data);
+          // console.log(data);
         alert(data.message);
         this.loader=false;
         // this.router.navigate(["/dashboard"]);
       },
         error=>{
-          console.log(error);
+          // console.log(error);
           this.loader=false;
          alert(error.error.message);
       }
