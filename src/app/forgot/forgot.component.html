@@ -29,7 +29,7 @@
         <div class="col-lg-6 text-center">
             <h1>Find Account</h1>
             <br>
-            <form (ngSubmit)="find()" [formGroup]="findAccount">
+            <form (ngSubmit)="find()" [formGroup]="findAccount" autocomplete="on">
                 <!-- <label for="">E-mail</label> -->
                 <input type=" text " class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!findAccount.get('email').valid && valid,'valid':findAccount.get('email').valid}">
                 <span *ngIf="!findAccount.get('email').valid && valid" style="color: red;">Please enter a valid E-mail id</span>
@@ -39,14 +39,14 @@
             </form>
         </div>
     </div>
-    <div class="row text-center" *ngIf="accountDetails!=null">
-        <div class="col-lg-3 mt-5"></div>
-        <div class="col-lg-6 text-center">
-            <div class="card" style="width: 35rem;background-color: #F7F7F7;">
+    <div class="row " *ngIf="accountDetails!=null">
+        <div class="col-lg-1"></div>
+        <div class="col-12 col-lg-11  text-center">
+            <div class="card" style="background-color: #F7F7F7;">
                 <div class="card-body">
                     <h5 class="card-title">E-mail: {{accountDetails.email}}</h5>
                     <br>
-                    <h6 class="card-subtitle mb-2 ">First Name: {{accountDetails.firstName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Last Name: {{accountDetails.lastName}}</h6>
+                    <h6 class="card-subtitle mb-2 ">First Name: {{accountDetails.firstName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Last Name: {{accountDetails.lastName}}</h6>
                     <!-- <h6 class="card-subtitle mb-2">Last Name: {{accountDetails.lastName}}</h6> -->
                     <br>
                     <p class="card-text">click verify to get a verification link to your E-mail</p>
